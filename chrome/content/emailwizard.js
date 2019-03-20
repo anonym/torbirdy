@@ -142,21 +142,21 @@ if(!org.torbirdy.emailwizard) org.torbirdy.emailwizard = new function() {
       // default (POP vs IMAP according to our pref) at suitable times, i.e.
       // when the page has been pre-filled and is finally presented to user
       // action.
-      var result_imappop_hacks_run_once = false;
+      var result_servertype_hacks_run_once = false;
       var old_displayConfigResult = gEmailConfigWizard.displayConfigResult;
       gEmailConfigWizard.displayConfigResult = function(config) {
         old_displayConfigResult.call(this, config);
-        var radiogroup = document.getElementById("result_imappop");
+        var radiogroup = document.getElementById("result_servertype");
         if (radiogroup.hidden) {
           return;
         }
         // We can only run the monkeypatch code below once -- this method is
         // called every time we change selection, preventing us from changing
         // the selection away from POP.
-        if (result_imappop_hacks_run_once) {
+        if (result_servertype_hacks_run_once) {
           return;
         }
-        result_imappop_hacks_run_once = true;
+        result_servertype_hacks_run_once = true;
         var imap_element = document.getElementById("result_select_imap");
         var pop_element = document.getElementById("result_select_pop3");
         if (prefer_pop && imap_element.selected && pop_element) {
